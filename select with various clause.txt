@@ -1,0 +1,98 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 96
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| faculty       |
+| mentees       |
++---------------+
+2 rows in set (0.01 sec)
+
+mysql> select*from mentees;
++-----------+---------+------+----------+------------+
+| regno     | name    | dep  | address  | fathername |
++-----------+---------+------+----------+------------+
+| 192110351 | karthik | cse  | kollapur | karthik    |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |
+|  19211551 | pawan   | it   | kollapur | pawan      |
++-----------+---------+------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees where dep='cse';
++-----------+---------+------+----------+------------+
+| regno     | name    | dep  | address  | fathername |
++-----------+---------+------+----------+------------+
+| 192110351 | karthik | cse  | kollapur | karthik    |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |
++-----------+---------+------+----------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select*from where name="pawan";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where name="pawan"' at line 1
+mysql> select*from mentees where name="pawan";
++----------+-------+------+----------+------------+
+| regno    | name  | dep  | address  | fathername |
++----------+-------+------+----------+------------+
+| 19211551 | pawan | it   | kollapur | pawan      |
++----------+-------+------+----------+------------+
+1 row in set (0.00 sec)
+
+mysql> alter table mentees add marks int(3);
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 1
+
+mysql> update mentees set marks=99 where dep="cse";
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update mentees set marks=91 where dep="it";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update mentees set marks=90 where name="rajesh";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update mentees set marks=100 where name="pawan";
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select*from mentees;
++-----------+---------+------+----------+------------+-------+
+| regno     | name    | dep  | address  | fathername | marks |
++-----------+---------+------+----------+------------+-------+
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |    90 |
+|  19211551 | pawan   | it   | kollapur | pawan      |   100 |
++-----------+---------+------+----------+------------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select*erom mentees where namelike 'g%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'erom mentees where namelike 'g%'' at line 1
+mysql> select*from mentees where namelike 'g%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''g%'' at line 1
+mysql> select*from mentees where namelike "g%";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"g%"' at line 1
+mysql> select*from mentees where name like "p__a_";
++----------+-------+------+----------+------------+-------+
+| regno    | name  | dep  | address  | fathername | marks |
++----------+-------+------+----------+------------+-------+
+| 19211551 | pawan | it   | kollapur | pawan      |   100 |
++----------+-------+------+----------+------------+-------+
+1 row in set (0.00 sec)
+
+mysql>

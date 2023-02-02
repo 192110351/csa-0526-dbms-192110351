@@ -1,0 +1,68 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 92
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use sse ;
+Database changed
+mysql> create a table mentees(regno int(10),name varchar(20),dep varchar(10), address varchar(10), fathername varchar(10));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'a table mentees(regno int(10),name varchar(20),dep varchar(10), address varchar(' at line 1
+mysql> create table mentees(regno int(10), name varchar(20), dep varchar(4),address varchar(10),fathername varchar(10));Query OK, 0 rows affected, 1 warning (0.02 sec)
+
+
+mysql> insert into mentees values(192110351,"karthik","cse","kollapur","karthik");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into mentees values(19211451,"rajesh","cse","kollapur","krthik");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into mentees values(19211551,"pawan","cse","kollapur","pawan");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select*from mentees;
++-----------+---------+------+----------+------------+
+| regno     | name    | dep  | address  | fathername |
++-----------+---------+------+----------+------------+
+| 192110351 | karthik | cse  | kollapur | karthik    |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |
+|  19211551 | pawan   | cse  | kollapur | pawan      |
++-----------+---------+------+----------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select name from mentees;
++---------+
+| name    |
++---------+
+| karthik |
+| rajesh  |
+| pawan   |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> select*fri
+    -> skkdkd
+    -> select name from mentees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'fri
+skkdkd
+select name from mentees' at line 1
+mysql> select*from where name= karthik;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where name= karthik' at line 1
+mysql> select*from where name="karthik";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where name="karthik"' at line 1
+mysql> select*from mentees where name="karthik";
++-----------+---------+------+----------+------------+
+| regno     | name    | dep  | address  | fathername |
++-----------+---------+------+----------+------------+
+| 192110351 | karthik | cse  | kollapur | karthik    |
++-----------+---------+------+----------+------------+
+1 row in set (0.00 sec)
+
+mysql>
