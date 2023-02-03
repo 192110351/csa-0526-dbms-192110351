@@ -1,0 +1,165 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 106
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| faculty       |
+| mentees       |
+| mentees1      |
++---------------+
+3 rows in set (0.01 sec)
+
+mysql> select*from mentees;
++-----------+---------+------+----------+------------+-------+---------+
+| regno     | name    | dep  | address  | fathername | marks | subject |
++-----------+---------+------+----------+------------+-------+---------+
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 | ethics  |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |    90 | ethics  |
+|  19211551 | pawan   | it   | kollapur | pawan      |   100 | NULL    |
++-----------+---------+------+----------+------------+-------+---------+
+3 rows in set (0.01 sec)
+
+mysql> create table mdep(depid int(5),depname varchar(20), rollno int(10));
+Query OK, 0 rows affected, 2 warnings (0.05 sec)
+
+mysql> insert into mdep values(2,"cse",192110351);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into mdep values(3,"it",192110551);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> update mdep set depid=3 where rollno=192110351;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update mdep set depid=3 where rollno=192110551;
+Query OK, 0 rows affected (0.00 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select*from mdep;
++-------+---------+-----------+
+| depid | depname | rollno    |
++-------+---------+-----------+
+|     3 | cse     | 192110351 |
+|     3 | it      | 192110551 |
++-------+---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select depid,depname from mdep,mentees where mentees.regno=dep.rollno;
+ERROR 1054 (42S22): Unknown column 'dep.rollno' in 'where clause'
+mysql> select depid,depname from mdep,mentees where mentees.depid=mdep.rollno;
+ERROR 1054 (42S22): Unknown column 'mentees.depid' in 'where clause'
+mysql> select depid,depname from mdep,mentees where mentees.depid=mdep.rollno;
+ERROR 1054 (42S22): Unknown column 'mentees.depid' in 'where clause'
+mysql> select*from dep;
+ERROR 1146 (42S02): Table 'sse.dep' doesn't exist
+mysql> select*from dep;
+ERROR 1146 (42S02): Table 'sse.dep' doesn't exist
+mysql> select*from dep;
+ERROR 1146 (42S02): Table 'sse.dep' doesn't exist
+mysql> select*from depname;
+ERROR 1146 (42S02): Table 'sse.depname' doesn't exist
+mysql> select*from depid;
+ERROR 1146 (42S02): Table 'sse.depid' doesn't exist
+mysql> select*from faculty;
++-------+---------+---------+--------+
+| facid | facname | facdept | salary |
++-------+---------+---------+--------+
+|     1 | karthik | cse     |  30000 |
+|     2 | rajesh  | cse     |   1000 |
++-------+---------+---------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select depid,depname ftom where mdep, mentees where mentees.regno.rollno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', mentees where mentees.regno.rollno' at line 1
+mysql> select depid,depname from mdep,  mentees where mentees.regno=mdep.rollno;
++-------+---------+
+| depid | depname |
++-------+---------+
+|     3 | cse     |
++-------+---------+
+1 row in set (0.00 sec)
+
+mysql> select name, depid,depname,rollno from mdep m, mentees m1 where m1.regno=m.rollno;
++---------+-------+---------+-----------+
+| name    | depid | depname | rollno    |
++---------+-------+---------+-----------+
+| karthik |     3 | cse     | 192110351 |
++---------+-------+---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select rollno, depname,name,address from mdep left outer join mentees on mdep.rollno=mentees.regno;
++-----------+---------+---------+----------+
+| rollno    | depname | name    | address  |
++-----------+---------+---------+----------+
+| 192110351 | cse     | karthik | kollapur |
+| 192110551 | it      | NULL    | NULL     |
++-----------+---------+---------+----------+
+2 rows in set (0.00 sec)
+
+mysql> select rollno, depname,name,address from mdep right outer join mentees on mdep.rollno=mentees.regno;
++-----------+---------+---------+----------+
+| rollno    | depname | name    | address  |
++-----------+---------+---------+----------+
+| 192110351 | cse     | karthik | kollapur |
+|      NULL | NULL    | rajesh  | kollapur |
+|      NULL | NULL    | pawan   | kollapur |
++-----------+---------+---------+----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into mdep values(4,"cse"'192110351);
+    '> insert into mdep values(4,"ene"'192110351);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '192110351)' at line 2
+mysql> insert into mdep values(4,"cse"'192110351);
+    '> select rollno, depname, naem, address from mdep riht outer join mentees on mdep.rollno=mentees.regno;
+    '>
+    '> select rollno, depname, naem, address from mdep riht outer join mentees on mdep.rollno=mentees.regno;j
+    '> hjjjvjhvjhvjh,j
+    '> insert into mdep values(4,"ene"'192110351);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '192110351)' at line 6
+mysql> insert into mdep values(3,"cse"'192110351);
+    '> insert into mdep values(4,"cse"'192110351);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '192110351)' at line 2
+mysql> insert into mdep values(3,"cse",192110351);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select rollno, depname, naem, address from mdep riht outer join mentees on mdep.rollno=mentees.regno;j
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'outer join mentees on mdep.rollno=mentees.regno' at line 1
+    -> select rollno, depname, name, address from mdep riht outer join mentees on mdep.rollno=mentees.regno;j
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'j
+select rollno, depname, name, address from mdep riht outer join mentees on mde' at line 1
+    -> select rollno, depname, name, address from mdep riht outer join mentees on mdep.rollno=mentees.regno;j
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'j
+select rollno, depname, name, address from mdep riht outer join mentees on mde' at line 1
+    -> select rollno, depname, name, address from mdep right outer join mentees on mdep.rollno=mentees.regno;j
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'j
+select rollno, depname, name, address from mdep right outer join mentees on md' at line 1
+    -> select rollno, depname, name, address from mdep right outer join mentees on mdep.rollno=mentees.regno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'j
+select rollno, depname, name, address from mdep right outer join mentees on md' at line 1
+mysql> select rollno, depname, name, address from mdep right outer join mentees on mdep.rollno=mentees.regno;
++-----------+---------+---------+----------+
+| rollno    | depname | name    | address  |
++-----------+---------+---------+----------+
+| 192110351 | cse     | karthik | kollapur |
+| 192110351 | cse     | karthik | kollapur |
+|      NULL | NULL    | rajesh  | kollapur |
+|      NULL | NULL    | pawan   | kollapur |
++-----------+---------+---------+----------+
+4 rows in set (0.00 sec)
+
+mysql>
