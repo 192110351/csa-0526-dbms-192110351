@@ -1,0 +1,81 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 99
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| faculty       |
+| mentees       |
++---------------+
+2 rows in set (0.02 sec)
+
+mysql> select*from mentees;
++-----------+---------+------+----------+------------+-------+---------+
+| regno     | name    | dep  | address  | fathername | marks | subject |
++-----------+---------+------+----------+------------+-------+---------+
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 | ethics  |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |    90 | ethics  |
+|  19211551 | pawan   | it   | kollapur | pawan      |   100 | NULL    |
++-----------+---------+------+----------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees order by name;
++-----------+---------+------+----------+------------+-------+---------+
+| regno     | name    | dep  | address  | fathername | marks | subject |
++-----------+---------+------+----------+------------+-------+---------+
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 | ethics  |
+|  19211551 | pawan   | it   | kollapur | pawan      |   100 | NULL    |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |    90 | ethics  |
++-----------+---------+------+----------+------------+-------+---------+
+3 rows in set (0.01 sec)
+
+mysql> select*from mentees group by name;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'sse.mentees.regno' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select*from mentees group by dep;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'sse.mentees.regno' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select*from mentees group by marks;
+ERROR 1055 (42000): Expression #1 of SELECT list is not in GROUP BY clause and contains nonaggregated column 'sse.mentees.regno' which is not functionally dependent on columns in GROUP BY clause; this is incompatible with sql_mode=only_full_group_by
+mysql> select*from mentees order by marks;
++-----------+---------+------+----------+------------+-------+---------+
+| regno     | name    | dep  | address  | fathername | marks | subject |
++-----------+---------+------+----------+------------+-------+---------+
+|  19211451 | rajesh  | cse  | kollapur | krthik     |    90 | ethics  |
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 | ethics  |
+|  19211551 | pawan   | it   | kollapur | pawan      |   100 | NULL    |
++-----------+---------+------+----------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select*from order by dep;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by dep' at line 1
+mysql> select*from mentees order by dep;
++-----------+---------+------+----------+------------+-------+---------+
+| regno     | name    | dep  | address  | fathername | marks | subject |
++-----------+---------+------+----------+------------+-------+---------+
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 | ethics  |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |    90 | ethics  |
+|  19211551 | pawan   | it   | kollapur | pawan      |   100 | NULL    |
++-----------+---------+------+----------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees having marks>99;
++----------+-------+------+----------+------------+-------+---------+
+| regno    | name  | dep  | address  | fathername | marks | subject |
++----------+-------+------+----------+------------+-------+---------+
+| 19211551 | pawan | it   | kollapur | pawan      |   100 | NULL    |
++----------+-------+------+----------+------------+-------+---------+
+1 row in set (0.01 sec)
+
+mysql>
