@@ -1,0 +1,109 @@
+Enter password: **********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 98
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show tables;
+ERROR 1046 (3D000): No database selected
+mysql> use sse;
+Database changed
+mysql> show tables;
++---------------+
+| Tables_in_sse |
++---------------+
+| faculty       |
+| mentees       |
++---------------+
+2 rows in set (0.03 sec)
+
+mysql> alter table mentees add subject varchar(20);
+ERROR 1060 (42S21): Duplicate column name 'subject'
+mysql> update mentees set subject="dbms"where dep="cse";
+Query OK, 2 rows affected (0.00 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> update mentees set subject='ethics' where dep='cse';
+Query OK, 2 rows affected (0.01 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select*from mentees;
++-----------+---------+------+----------+------------+-------+---------+
+| regno     | name    | dep  | address  | fathername | marks | subject |
++-----------+---------+------+----------+------------+-------+---------+
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 | ethics  |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |    90 | ethics  |
+|  19211551 | pawan   | it   | kollapur | pawan      |   100 | NULL    |
++-----------+---------+------+----------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select*from mentees where marks between 91 and 100;
++-----------+---------+------+----------+------------+-------+---------+
+| regno     | name    | dep  | address  | fathername | marks | subject |
++-----------+---------+------+----------+------------+-------+---------+
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 | ethics  |
+|  19211551 | pawan   | it   | kollapur | pawan      |   100 | NULL    |
++-----------+---------+------+----------+------------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select* from mentees where subject in('ethics');
++-----------+---------+------+----------+------------+-------+---------+
+| regno     | name    | dep  | address  | fathername | marks | subject |
++-----------+---------+------+----------+------------+-------+---------+
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 | ethics  |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |    90 | ethics  |
++-----------+---------+------+----------+------------+-------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select*from mentees where marks not between 93 and 98;
++-----------+---------+------+----------+------------+-------+---------+
+| regno     | name    | dep  | address  | fathername | marks | subject |
++-----------+---------+------+----------+------------+-------+---------+
+| 192110351 | karthik | cse  | kollapur | karthik    |    99 | ethics  |
+|  19211451 | rajesh  | cse  | kollapur | krthik     |    90 | ethics  |
+|  19211551 | pawan   | it   | kollapur | pawan      |   100 | NULL    |
++-----------+---------+------+----------+------------+-------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select sum(marks) from mentees where dep="cse";
++------------+
+| sum(marks) |
++------------+
+|        189 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(marks) as average from mentees;
++---------+
+| average |
++---------+
+| 96.3333 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select min(marks) as minimum erom mentees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'erom mentees' at line 1
+mysql> select min(marks) as minimum from mentees;
++---------+
+| minimum |
++---------+
+|      90 |
++---------+
+1 row in set (0.00 sec)
+
+mysql> select max(marks) as maximum from mentees;
++---------+
+| maximum |
++---------+
+|     100 |
++---------+
+1 row in set (0.00 sec)
+
+mysql>
